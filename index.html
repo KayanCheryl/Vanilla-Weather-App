@@ -11,8 +11,21 @@
 </head>
 <body>
     <div class="weather-app">
-        <a href="" class="btn btn-light">Search</a>
-        <div>
+        <form id="form">
+
+    <div class= "row">
+            <span class ="col-4">
+         
+            <input type="text" placeholder="Enter a city" autofocus="on" id="location-input">
+        
+    </span>
+    <div class="col-8">
+        <button class="btn btn-light" type="submit" value="search">Search</button>
+    </div>
+
+    </div>
+</form>        
+<div>
            <img src="img/rain.png" alt="rain" class="weather-image">
         </div>
        <div class="row">
@@ -26,7 +39,7 @@
        </div>
        <div class="col-6 other-information">
            <ul class="other-information">
-               <li class="place">
+               <li class="place" id="place">
                    Hong Kong 
                </li>
                <li>
