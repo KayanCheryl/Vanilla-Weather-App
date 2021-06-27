@@ -1,3 +1,44 @@
+//Date and Time (Time zone matters' are not yet included)
+//Week
+function showTime(){
+let currentWeek = document.querySelector("#week");
+
+let current = new Date();
+let days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
+let currentDay = days[current.getDay()];
+currentDay=currentDay.toUpperCase();
+
+currentWeek.innerHTML=`${currentDay}`
+
+//Greeting 
+let greeting = document.querySelector("#greeting");
+
+let currentHour = current.getHours();
+
+console.log(currentHour)
+
+if(currentHour >=5 || currentHour <12){
+    greeting.innerHTML=`Good Morning`
+}if(currentHour >=12 || currentHour<17){
+    greeting.innerHTML=`Good Afternoon`
+}if(currentHour >=17 || currentHour<=19){
+    greeting.innerHTML=`Good Evening`
+}if(currentHour >19 || currentHour <5 ){
+    greeting.innerHTML=`Good Night`
+}
+}
+
+
+
 let searchForm = document.querySelector("#form")
 
 function showTemperature(response){
@@ -36,6 +77,7 @@ function showResult(){
     axios.get(apiUrl).then(showTemperatureFeelLike);
     axios.get(apiUrl).then(showHumidity);
     axios.get(apiUrl).then(showWindSpeed);
+    axios.get(apiUrl).then(showTime);
 }
 
 searchForm.addEventListener("submit", showResult)
