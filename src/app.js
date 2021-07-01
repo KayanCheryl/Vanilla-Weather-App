@@ -24,15 +24,17 @@ let greeting = document.querySelector("#greeting");
 
 let currentHour = current.getHours();
 
-console.log(currentHour)
 
-if(currentHour >=5 || currentHour <12){
+if(currentHour<5){
+    greeting.innerHTML=`Good Night`
+}
+else if(currentHour <12){
     greeting.innerHTML=`Good Morning`
-}else if(currentHour >=12 || currentHour<17){
+}else if(currentHour <=17){
     greeting.innerHTML=`Good Afternoon`
-}else if(currentHour >=17 || currentHour<=19){
+}else if(currentHour <=19){
     greeting.innerHTML=`Good Evening`
-}else if(currentHour >19 || currentHour <5 ){
+}else if(currentHour<=24 ){
     greeting.innerHTML=`Good Night`
 }
 }
@@ -41,6 +43,12 @@ if(currentHour >=5 || currentHour <12){
 //Searching engine and show celcius result
 
 let searchForm = document.querySelector("#form")
+
+function showIcon(response){
+    let currentIcon=response.data.weather[0].icon
+    let iconElement= document.querySelector("#icon")
+    iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${currentIcon}@2x.png`)
+}
 
 function showTemperature(response){
     let currentTemperature=Math.round(response.data.main.temp)
@@ -64,7 +72,16 @@ function showWindSpeed(response){
     let currentWindSpeed=response.data.wind.speed
     let windSpeedElement= document.querySelector("#windSpeed")
     windSpeedElement.innerHTML=`${currentWindSpeed}`;
+    console.log(currentWindSpeed)
 }
+
+function showDescription(response){
+    let currentDescription=response.data.weather[0].description
+    let descriptionElement= document.querySelector("#description")
+    descriptionElement.innerHTML=`${currentDescription}`;
+    console.log(currentDescription)
+}
+
 
 function showResult(){
     event.preventDefault();
@@ -74,10 +91,12 @@ function showResult(){
     countryShown.innerHTML =`${country}`
     let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
     let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=metric&appid=${apiKey}`
+     axios.get(apiUrl).then(showIcon);
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showTemperatureFeelLike);
     axios.get(apiUrl).then(showHumidity);
     axios.get(apiUrl).then(showWindSpeed);
+    axios.get(apiUrl).then(showDescription);
     axios.get(apiUrl).then(showTime);
 }
 
@@ -120,10 +139,12 @@ function showCurrentResult(){
     countryShown.innerHTML =`${country}`
     let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
     let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=metric&appid=${apiKey}`
+    axios.get(apiUrl).then(showIcon);
     axios.get(apiUrl).then(showTemperature);
     axios.get(apiUrl).then(showTemperatureFeelLike);
     axios.get(apiUrl).then(showHumidity);
     axios.get(apiUrl).then(showWindSpeed);
+    axios.get(apiUrl).then(showDescription);
     axios.get(apiUrl).then(showTime);
 }
 
