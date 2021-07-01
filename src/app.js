@@ -28,16 +28,16 @@ console.log(currentHour)
 
 if(currentHour >=5 || currentHour <12){
     greeting.innerHTML=`Good Morning`
-}if(currentHour >=12 || currentHour<17){
+}else if(currentHour >=12 || currentHour<17){
     greeting.innerHTML=`Good Afternoon`
-}if(currentHour >=17 || currentHour<=19){
+}else if(currentHour >=17 || currentHour<=19){
     greeting.innerHTML=`Good Evening`
-}if(currentHour >19 || currentHour <5 ){
+}else if(currentHour >19 || currentHour <5 ){
     greeting.innerHTML=`Good Night`
 }
 }
 
-
+//Searching engine and show celcius result
 
 let searchForm = document.querySelector("#form")
 
@@ -81,6 +81,32 @@ function showResult(){
 }
 
 searchForm.addEventListener("submit", showResult)
+
+//Convert to Fahrenheit
+
+function displayFahrenheit(response){
+    let currentTemperature=Math.round(response.data.main.temp)
+    let temperatureElement= document.querySelector("#temperature")
+    temperatureElement.innerHTML=`${currentTemperature}`;
+}
+
+function convertingToFahrenheit(){
+    event.preventDefault();
+    let countrySubmitted = document.querySelector("#location-input")
+    let countryShown = document.querySelector("#place")
+    let country = `${countrySubmitted.value}`
+    countryShown.innerHTML =`${country}`
+    let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
+    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=imperial&appid=${apiKey}`
+    axios.get(apiUrl).then(displayFahrenheit);
+}
+
+fahrenheitButton.addEventListener("click", convertingToFahrenheit)
+
+//Convert to Celcius 
+
+celciusButton.addEventListener("click", showResult)
+
 
 
 
