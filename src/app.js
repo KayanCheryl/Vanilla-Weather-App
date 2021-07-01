@@ -37,6 +37,7 @@ if(currentHour >=5 || currentHour <12){
 }
 }
 
+
 //Searching engine and show celcius result
 
 let searchForm = document.querySelector("#form")
@@ -69,7 +70,7 @@ function showResult(){
     event.preventDefault();
     let countrySubmitted = document.querySelector("#location-input")
     let countryShown = document.querySelector("#place")
-    let country = `${countrySubmitted.value}`
+    country = `${countrySubmitted.value}`
     countryShown.innerHTML =`${country}`
     let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
     let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=metric&appid=${apiKey}`
@@ -84,34 +85,53 @@ searchForm.addEventListener("submit", showResult)
 
 //Convert to Fahrenheit
 
-function displayFahrenheit(response){
-    let currentTemperature=Math.round(response.data.main.temp)
-    let temperatureElement= document.querySelector("#temperature")
-    temperatureElement.innerHTML=`${currentTemperature}`;
-}
-
-function convertingToFahrenheit(){
+function convertingToFahrenheit(event){
     event.preventDefault();
-    let countrySubmitted = document.querySelector("#location-input")
-    let countryShown = document.querySelector("#place")
-    let country = `${countrySubmitted.value}`
-    countryShown.innerHTML =`${country}`
-    let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
-    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=imperial&appid=${apiKey}`
-    axios.get(apiUrl).then(displayFahrenheit);
-}
+    let temperatureElement = document.querySelector("#temperature")
+    let fahrenheitTemperature = Math.round((temperatureElement.innerHTML*9)/5+32)
+    temperatureElement.innerHTML = fahrenheitTemperature
+    fahrenheitButton.classList.add("active")
+    celciusButton.classList.remove("active")
+    }
 
 fahrenheitButton.addEventListener("click", convertingToFahrenheit)
 
 //Convert to Celcius 
 
-celciusButton.addEventListener("click", showResult)
+function convertingToCelcius(event){
+    event.preventDefault();
+    let temperatureElement = document.querySelector("#temperature")
+    let celciusTemperature = Math.round((temperatureElement.innerHTML-32)*5/9)
+    temperatureElement.innerHTML = celciusTemperature
+    fahrenheitButton.classList.remove("active")
+    celciusButton.classList.add("active")
+}
+    
+    celciusButton.addEventListener("click", convertingToCelcius)
+
+//Original 
+showTime();
+showCurrentResult();
+
+function showCurrentResult(){
+    let countrySubmitted = document.querySelector("#location-input")
+    let countryShown = document.querySelector("#place")
+    country = `Hong Kong`
+    countryShown.innerHTML =`${country}`
+    let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
+    let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=${country}&units=metric&appid=${apiKey}`
+    axios.get(apiUrl).then(showTemperature);
+    axios.get(apiUrl).then(showTemperatureFeelLike);
+    axios.get(apiUrl).then(showHumidity);
+    axios.get(apiUrl).then(showWindSpeed);
+    axios.get(apiUrl).then(showTime);
+}
 
 
 
 
 
 let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
-let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=Tokyo&units=metric&appid=${apiKey}`
+let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=Hong Kong&units=metric&appid=${apiKey}`
 
 console.log(apiUrl)
