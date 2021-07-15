@@ -98,6 +98,7 @@ function showResult(){
     axios.get(apiUrl).then(showWindSpeed);
     axios.get(apiUrl).then(showDescription);
     axios.get(apiUrl).then(showTime);
+    
 }
 
 searchForm.addEventListener("submit", showResult)
@@ -131,6 +132,7 @@ function convertingToCelcius(event){
 //Original 
 showTime();
 showCurrentResult();
+displayForecast();
 
 function showCurrentResult(){
     let countrySubmitted = document.querySelector("#location-input")
@@ -149,7 +151,36 @@ function showCurrentResult(){
 }
 
 
+//Forecast 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
 
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+
+  let forecastRow = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastRow =
+      forecastRow +
+      `
+      <div class="col-2">
+        <div class="weather-forecast-date">${day}</div>
+        <img
+          src="http://openweathermap.org/img/wn/50d@2x.png"
+          alt=""
+          width="42"
+        />
+        <div class="weather-forecast-temperatures">
+          <span class="weather-forecast-temperature-max"> 18° </span>
+          <span class="weather-forecast-temperature-min"> 12° </span>
+        </div>
+      </div>
+  `;
+  });
+
+  forecastRow = forecastRow + `</div>`;
+  forecastElement.innerHTML = forecastRow;
+  console.log(forecastElement)
+}
 
 
 let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;

@@ -4,7 +4,7 @@ margin: 30px auto;
 padding-left: 40px; 
 padding-top:40px;
 padding-right:30px;
-padding-bottom:50px;
+padding-bottom:40px;
 border: 1px solid #868B8E; 
 border-radius: 10%;
 font-family: monospace;
@@ -20,14 +20,14 @@ font-family: monospace;
 
 .temperature{
     padding-left:50px;
-    font-size: 35px;
+    font-size: 50px;
     color:#48494b
 }
 
 .temperature .unit{
     position: relative;
     font-size: 14px;
-    top: -10px;
+    top: -20px;
     right: 10px
 } 
 
@@ -63,6 +63,7 @@ font-family: monospace;
 }
 
 .signature{
+    margin-top: 30px;
     font-size:12px  ;
 }
 
