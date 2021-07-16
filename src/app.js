@@ -110,31 +110,7 @@ function showResult(){
 
 searchForm.addEventListener("submit", showResult)
 
-//Convert to Fahrenheit
 
-function convertingToFahrenheit(event){
-    event.preventDefault();
-    let temperatureElement = document.querySelector("#temperature")
-    let fahrenheitTemperature = Math.round((temperatureElement.innerHTML*9)/5+32)
-    temperatureElement.innerHTML = fahrenheitTemperature
-    fahrenheitButton.classList.add("active")
-    celciusButton.classList.remove("active")
-    }
-
-fahrenheitButton.addEventListener("click", convertingToFahrenheit)
-
-//Convert to Celcius 
-
-function convertingToCelcius(event){
-    event.preventDefault();
-    let temperatureElement = document.querySelector("#temperature")
-    let celciusTemperature = Math.round((temperatureElement.innerHTML-32)*5/9)
-    temperatureElement.innerHTML = celciusTemperature
-    fahrenheitButton.classList.remove("active")
-    celciusButton.classList.add("active")
-}
-    
-    celciusButton.addEventListener("click", convertingToCelcius)
 
 //Original 
 showTime();
