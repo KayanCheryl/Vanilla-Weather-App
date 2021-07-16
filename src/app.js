@@ -50,10 +50,20 @@ function showIcon(response){
     iconElement.setAttribute("src", `http://openweathermap.org/img/wn/${currentIcon}@2x.png`)
 }
 
+function getForecast(coordinates){
+   console.log(coordinates);
+    let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
+    let apiUrl =`https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+   axios.get(apiUrl).then(displayForecast)
+   console.log(apiUrl)
+   displayForecast();
+}
+
 function showTemperature(response){
     let currentTemperature=Math.round(response.data.main.temp)
     let temperatureElement= document.querySelector("#temperature")
     temperatureElement.innerHTML=`${currentTemperature}`;
+    getForecast(response.data.coord);
 }
 
 function showTemperatureFeelLike(response){
@@ -72,14 +82,12 @@ function showWindSpeed(response){
     let currentWindSpeed=response.data.wind.speed
     let windSpeedElement= document.querySelector("#windSpeed")
     windSpeedElement.innerHTML=`${currentWindSpeed}`;
-    console.log(currentWindSpeed)
 }
 
 function showDescription(response){
     let currentDescription=response.data.weather[0].description
     let descriptionElement= document.querySelector("#description")
     descriptionElement.innerHTML=`${currentDescription}`;
-    console.log(currentDescription)
 }
 
 
@@ -98,7 +106,6 @@ function showResult(){
     axios.get(apiUrl).then(showWindSpeed);
     axios.get(apiUrl).then(showDescription);
     axios.get(apiUrl).then(showTime);
-    
 }
 
 searchForm.addEventListener("submit", showResult)
@@ -132,7 +139,7 @@ function convertingToCelcius(event){
 //Original 
 showTime();
 showCurrentResult();
-displayForecast();
+
 
 function showCurrentResult(){
     let countrySubmitted = document.querySelector("#location-input")
@@ -152,7 +159,8 @@ function showCurrentResult(){
 
 
 //Forecast 
-function displayForecast() {
+function displayForecast(response) {
+    console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
@@ -179,11 +187,9 @@ function displayForecast() {
 
   forecastRow = forecastRow + `</div>`;
   forecastElement.innerHTML = forecastRow;
-  console.log(forecastElement)
 }
 
 
 let apiKey=`7d18e9a62c58e4e66a95783116ceb8e4`;
 let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=Hong Kong&units=metric&appid=${apiKey}`
 
-console.log(apiUrl)
